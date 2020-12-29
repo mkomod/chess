@@ -13,4 +13,5 @@ $ g++ chess.cpp -o chess -O3
 ## Next steps
 
  - Nicer interface
+ - Fix checking mechanics
 
