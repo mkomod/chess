@@ -10,3 +10,7 @@ $ g++ chess.cpp -o chess -O3
 
 ![screen.png](./screen.png)
 
+## Next steps
+
+ - Nicer interface
+
