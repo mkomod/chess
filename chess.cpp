@@ -179,7 +179,7 @@ bool Game::Move(char move[4]) {
     if (valid) {
 	board[tx][ty] = from;
 	board[fx][fy] = na;
-	
+
 	// check to see if we're in check
 	whiteInCheck = inCheck(white);
 	blackInCheck = inCheck(black);
@@ -391,6 +391,7 @@ bool Game::moveKing(int fx, int fy, int tx, int ty) {
 
 bool Game::inCheck(Turn sideToCheck, int tx, int ty) {
     bool inCheck = false;
+    bool switched = false;
     Pieces from = na;
 
     
@@ -410,6 +411,13 @@ bool Game::inCheck(Turn sideToCheck, int tx, int ty) {
     }
 
     sideToCheck == white ? board[tx][ty] = wp : board[tx][ty] = bp;
+    if (sideToCheck == white && turn == white) {
+	turn = black;
+	switched = true;
+    } else if (sideToCheck == black && turn == black) {
+	turn = white;
+	switched = true;
+    }
     
     for (int i = 0; i != 8; ++i) {
 	for (int j = 0; j != 8; ++j) {
@@ -474,6 +482,9 @@ bool Game::inCheck(Turn sideToCheck, int tx, int ty) {
 checkFound:
     // set the piece back to a king
     sideToCheck == white ? board[tx][ty] = wk : board[tx][ty] = bk;
+    if (switched) {
+	turn == white ? turn = black : turn = white;
+    }
 
     return inCheck;
 }
